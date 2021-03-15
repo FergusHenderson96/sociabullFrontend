@@ -28,18 +28,26 @@ const Intraday = () => {
 
       const companyIntraday = () => {
         fetch(`http://api.marketstack.com/v1/intraday?access_key=50bf475ef5b6b0f9498b98eab266ef2f&symbols=${text}`)
+        //fetches data from the API using the access key and the text from the text box
       .then((res) => res.json())
+        // converts results to JSON
       .then((data) => { 
         if (data.data[0].symbol == undefined) {
+          //checks to see if the data is undefined eg.(incorrect ticker symbol entered)
+          //and if so, sets Undef to true
           setUndef(true);
+          //this stops the code from being rendered if there is no data to show
         }else{
           setUndef(false)
+          //if the data is found, sets undef to false which allows the data to render
           let arr = price
           arr.push(data)
           setPrice(arr)
+          //assigns info to price to allow us to map to list different parts of the data
           setText("")
-        console.log(data)
+          //sets the text back to blank and rerenders the page
         chartInfo()
+        //runs the chart information function to set the chart details
       }
         }  )}
 
